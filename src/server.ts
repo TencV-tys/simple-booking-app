@@ -19,7 +19,7 @@ svr.use(express.json());
 svr.use(express.urlencoded({extended:true}));
 svr.use(cookieParser());
 
-svr.use('api/auth',AuthRoutes);
+svr.use('/api/auth',AuthRoutes);
 
 svr.listen(PORT,()=>{
     console.log(`Server running at port ${PORT}`);

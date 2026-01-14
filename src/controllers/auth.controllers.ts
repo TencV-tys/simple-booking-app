@@ -10,13 +10,13 @@ export class AuthController{
               const result = await AuthServices.signup(name, email, password);
 
               if(!result.success){
-                res.status(401).json({
+                return res.status(401).json({
                     success:false,
                     message:result.message
                 })
               }
 
-               res.json({
+               return res.json({
                 success:true,
                 message:result.message,
                 user:result.user
@@ -25,7 +25,7 @@ export class AuthController{
 
          }catch(e){
             console.error(e);
-            res.status(500).json({
+            return res.status(500).json({
                  success:false,
                  message:"Internal Server Error"
             });
@@ -42,13 +42,13 @@ export class AuthController{
                const result = await AuthServices.login(email,password);
 
                if(!result.success){
-                res.status(401).json({
+                return res.status(401).json({
                     success:false,
                     message:result.message
                 });
                }
 
-                res.json({
+                return res.json({
                     success:true,
                     message:result.message,
                     user:result.user
@@ -56,7 +56,7 @@ export class AuthController{
 
              }catch(e){
                 console.error(e);
-                res.status(500).json({
+                return res.status(500).json({
                     success:false,
                     message:"Internal Server Error"
                 });
