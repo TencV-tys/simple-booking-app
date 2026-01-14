@@ -11,7 +11,7 @@ export interface AuthTypes{
    token?:string;
    user?:{
         id:string;
-        name:string | null;
+        name:string;
         email:string;
         role:string;
    }
