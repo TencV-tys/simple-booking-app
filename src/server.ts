@@ -17,6 +17,7 @@ svr.use(cors({
 
 svr.use(express.json());
 svr.use(express.urlencoded({extended:true}));
+
 svr.use(cookieParser());
 
 svr.use('/api/auth',AuthRoutes);
