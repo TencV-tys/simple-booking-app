@@ -3,6 +3,11 @@ import type { AuthTypes } from "../types/auth.interface";
 import jwt, { SignOptions } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
+interface TokenPayload{
+    userId:string;
+    role:string;
+}
+
 export class AuthServices{
 
          static async signup(name:string, email:string,password:string):Promise<AuthTypes>{
@@ -137,5 +142,14 @@ export class AuthServices{
         { expiresIn: expiresIn }  
     );
 }
+
+  static verifyToken(token:string):TokenPayload | null{
+      try{
+        return jwt.verify(token,process.env.JWT_SECRET as string) as TokenPayload;
+      }catch(e){
+        return null;
+      }
+  }
+
 }
 
