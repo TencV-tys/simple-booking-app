@@ -87,10 +87,19 @@ export class AuthServices{
                 }
 
             const passwordValid = await bcrypt.compare(password,user.password);
+                if(!passwordValid){
+                    return{
+                        success:false,
+                        message:"Invalid password"
+                    }
+                }
+             
+                const token =  this.generateToken(user.id,user.role);
 
                 return {
                     success:true,
                     message:"Login successfully",
+                    token,
                     user:{
                         id:user.id,
                         name:user.name || '',
