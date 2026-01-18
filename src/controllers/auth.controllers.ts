@@ -16,7 +16,12 @@ export class AuthController{
                 })
               }
 
-                   
+                   res.cookie('token',result.token,{
+                       httpOnly:true,
+                       secure:false,
+                       sameSite:'strict',
+                       maxAge: 7 * 24 * 60 * 1000
+                   });
 
 
                return res.json({
