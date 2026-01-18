@@ -47,10 +47,12 @@ export class BookingController{
                 message:"User not authenticated"
             })
            }
-                const {id} = req.params as {id:string};
-                const {data} = req.body;
-
-                const booking = await BookingServices.updateBooking(id,data);
+                const {id:bookingId} = req.params as {id:string};
+               
+                   const { serviceType, date, time, notes } = req.body;
+                   
+                  
+                const booking = await BookingServices.updateBooking(bookingId,serviceType,date,time,notes);
                   
                 if(!booking){
                     return res.status(404).json({

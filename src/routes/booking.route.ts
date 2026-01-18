@@ -8,7 +8,7 @@ router.use(AuthMiddleware);
 router.post('/booked',BookingController.createBooking);
 router.get('/booked',BookingController.getAllBooking);
 router.put('/booked/:id',BookingController.updateBooking);
-router.put('/booked/:id/status',BookingController.updateBookingStatus);
+router.patch('/booked/:id/status',BookingController.updateBookingStatus);
 router.delete('/booked/:id',BookingController.deleteBooking);
 
 export default router;

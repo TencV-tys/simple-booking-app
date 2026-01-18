@@ -29,11 +29,16 @@ export class BookingServices{
               return bookings;
            }
              
-           static async updateBooking(bookingId:string, newData:any){
+           static async updateBooking(bookingId:string, serviceType:string,date:string,time:string,notes:string){
             
             const booking = await prisma.booking.update({
                 where:{id:bookingId},
-                data:newData
+                data:{
+                    serviceType,
+                    date,
+                    time,
+                    notes
+                }
             });
             
             return booking;
@@ -54,7 +59,7 @@ export class BookingServices{
            }
               
            static async deleteBooking(bookingId:string){
-            const booking = prisma.booking.delete({
+            const booking = await prisma.booking.delete({
                 where:{
                     id:bookingId
                 }
