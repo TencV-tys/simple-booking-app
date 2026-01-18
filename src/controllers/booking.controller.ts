@@ -1,13 +1,23 @@
 import { Request,Response } from "express";
 import { BookingServices } from "../services/booking.services";
-
+import { AuthRequest } from "../middlewares/auth.middleware";
 export class BookingController{
              
-    static async createBooking(req:Request, res:Response){
+    static async createBooking(req:AuthRequest, res:Response){
 
         try{
-        const {userId,serviceType,date,time,notes} = req.body;
-         
+           const userId = req.user?.id;
+              
+           if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"User not authenticated"
+            })
+           }
+           
+         const { serviceType, date, time, notes } = req.body;
+
+
          const booking = await BookingServices.createBooking(userId,serviceType,date,time,notes);
 
         return res.json({
@@ -27,10 +37,18 @@ export class BookingController{
     }
 
 
-    static async updateBooking(req:Request, res:Response){
+    static async updateBooking(req:AuthRequest, res:Response){
               try{
-                const {data} = req.body;
+                const userId = req.user?.id;
+              
+           if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"User not authenticated"
+            })
+           }
                 const {id} = req.params as {id:string};
+                const {data} = req.body;
 
                 const booking = await BookingServices.updateBooking(id,data);
                   
@@ -56,8 +74,16 @@ export class BookingController{
               }
     }
 
-     static async deleteBooking(req:Request, res:Response){
+     static async deleteBooking(req:AuthRequest, res:Response){
         try{      
+             const userId = req.user?.id;
+              
+           if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"User not authenticated"
+            })
+           }
         const {id } = req.params as {id:string};
 
               const booking = await BookingServices.deleteBooking(id);
@@ -87,9 +113,16 @@ export class BookingController{
 
      }     
 
-     static async getAllBooking(req:Request,res:Response){
+     static async getAllBooking(req:AuthRequest,res:Response){
             try{
-                 
+                  const userId = req.user?.id;
+              
+           if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"User not authenticated"
+            })
+           }
                 const booking = await BookingServices.getAllBookings();
 
                 return res.json({
@@ -110,8 +143,16 @@ export class BookingController{
 
      }
     
-     static async updateBookingStatus(req:Request,res:Response){
+     static async updateBookingStatus(req:AuthRequest,res:Response){
              try{
+                 const userId = req.user?.id;
+              
+           if(!userId){
+            return res.status(404).json({
+                success:false,
+                message:"User not authenticated"
+            })
+           }
                const {id} = req.params as {id:string};
                const {status} = req.body;
              

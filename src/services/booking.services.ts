@@ -14,7 +14,11 @@ export class BookingServices{
                       status:'PENDING'
                   }
             });
-            return booking;
+            return {
+                success:true,
+                message:"Created successfully",
+                booking:booking
+            };
 
            }
 

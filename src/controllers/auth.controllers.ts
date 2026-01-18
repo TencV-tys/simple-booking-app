@@ -16,6 +16,9 @@ export class AuthController{
                 })
               }
 
+                   
+
+
                return res.json({
                 success:true,
                 message:result.message,
@@ -47,10 +50,18 @@ export class AuthController{
                     message:result.message
                 });
                }
+               
+               res.cookie('token',result.token,{
+                httpOnly:true,
+                secure:false,
+                sameSite:'strict',
+                maxAge:7 * 24 * 60 * 1000
+               });
 
                 return res.json({
                     success:true,
                     message:result.message,
+                    token:result.token,
                     user:result.user
                 });
 

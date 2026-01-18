@@ -6,7 +6,7 @@ interface JWTPayload{
     email:string;
     role:string;
 }
-interface AuthRequest extends Request{
+export interface AuthRequest extends Request{
    user?:{
     id:string;
     email:string;
@@ -35,6 +35,7 @@ export const AuthMiddleware = (req:AuthRequest,res:Response, next:NextFunction)=
 
     }catch(e){
        return res.status(401).json({
+             success:false,
             message:"Invalid credentials"
         })
     }

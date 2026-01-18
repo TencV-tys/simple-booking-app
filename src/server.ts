@@ -4,7 +4,7 @@ import cookieParser  from 'cookie-parser';
 import dotenv from 'dotenv';
 
 import AuthRoutes from './routes/auth.routes';
-
+import BookingRoutes from './routes/booking.route';
 dotenv.config();
 
 const svr = express();
@@ -21,6 +21,7 @@ svr.use(express.urlencoded({extended:true}));
 svr.use(cookieParser());
 
 svr.use('/api/auth',AuthRoutes);
+svr.use('/api/booking',BookingRoutes);
 
 svr.listen(PORT,()=>{
     console.log(`Server running at port ${PORT}`);
