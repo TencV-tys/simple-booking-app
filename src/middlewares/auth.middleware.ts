@@ -3,11 +3,15 @@ import jwt from 'jsonwebtoken';
 
 interface JWTPayload{
     userId:string;
+    email:string;
     role:string;
 }
 interface AuthRequest extends Request{
-    userId?:string;
-    role?:'USER'|'ADMIN';
+   user?:{
+    id:string;
+    email:string;
+    role:string;
+   }
 }
 
 
@@ -22,9 +26,11 @@ export const AuthMiddleware = (req:AuthRequest,res:Response, next:NextFunction)=
         try{
             const decoded = jwt.verify(token,process.env.JWT_SECRET as string) as JWTPayload;
             
-            req.userId = decoded.userId;
-            req.role = decoded.role as any;
-
+            req.user = {
+                id:decoded.userId,
+                email:decoded.email,
+                role:decoded.role
+            }
             next();
 
     }catch(e){
